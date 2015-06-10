@@ -6,16 +6,23 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 18:06:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/06/10 13:50:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/06/10 18:57:15 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_IRC_H
 # define FT_IRC_H
 
+# define MAX_CLIENT			128
+
+int				ft_bind(char const *port);
+int				ft_connect(char const *addr, char const *port);
+
 /*
 ** ========================================================================== **
 ** Protocol:
+**  CMD [args ...]\r\n					Command
+**  :nickname CMD [args ...]\r\n		Full command
 ** ----
 ** Commands:
 **  PASS <passwd>						Set a password (use before USER)
@@ -55,6 +62,7 @@
 
 /*
 ** https://tools.ietf.org/html/rfc1459
+** -
 ** <message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>
 ** <prefix>   ::= <servername> | <nick> [ '!' <user> ] [ '@' <host> ]
 ** <command>  ::= <letter> { <letter> } | <number> <number> <number>
