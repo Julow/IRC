@@ -6,14 +6,16 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 18:06:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/06/10 18:57:15 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/06/10 19:06:45 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_IRC_H
 # define FT_IRC_H
 
-# define MAX_CLIENT			128
+# include "libft.h"
+
+# define MAX_CLIENTS		128
 
 int				ft_bind(char const *port);
 int				ft_connect(char const *addr, char const *port);
