@@ -6,17 +6,13 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/10 17:51:21 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/06/10 19:07:24 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/06/11 14:49:04 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_irc.h"
+#include "client.h"
 #include <sys/select.h>
 #include <unistd.h>
-
-/*
-** LOL JUST A TEST
-*/
 
 static void		read_write(r, w)
 {
