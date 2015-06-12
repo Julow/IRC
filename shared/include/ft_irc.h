@@ -6,12 +6,29 @@
 /*   By: jaguillo <jaguillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 18:06:46 by jaguillo          #+#    #+#             */
-/*   Updated: 2015/06/10 19:06:45 by jaguillo         ###   ########.fr       */
+/*   Updated: 2015/06/12 14:59:03 by jaguillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_IRC_H
 # define FT_IRC_H
+
+/*
+** ========================================================================== **
+** Impl
+** -
+** Protocol:
+**  CMD [args ...]\r\n					Command
+**  :nickname CMD [args ...]\r\n		Full command
+** ----
+** Commands:
+**  NICK <nick>							Set a nickname
+**  JOIN <channel>						Join a channel
+**  LEAVE <channel>						Leave a channel
+**  WHO									List users in current channels
+**  MSG <nick> [:]<message>				Send a private message
+**  CONNECT <machine> [port]			Connect to a server
+*/
 
 # include "libft.h"
 
@@ -22,6 +39,8 @@ int				ft_connect(char const *addr, char const *port);
 
 /*
 ** ========================================================================== **
+** irc
+** -
 ** Protocol:
 **  CMD [args ...]\r\n					Command
 **  :nickname CMD [args ...]\r\n		Full command
@@ -60,9 +79,7 @@ int				ft_connect(char const *addr, char const *port);
 ** User:
 **  Can be without channel
 **  Can be in sevaral channels
-*/
-
-/*
+** -
 ** https://tools.ietf.org/html/rfc1459
 ** -
 ** <message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>

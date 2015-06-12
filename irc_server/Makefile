@@ -1,5 +1,5 @@
 #
-# client
+# server
 #
 # Makefile
 #
@@ -9,10 +9,10 @@
 #
 
 # Project name
-NAME := client
+NAME := server
 
 # Project directories
-DIRS := srcs include ../shared/
+DIRS := srcs include ../shared
 
 # Obj directory
 O_DIR := o
@@ -44,10 +44,14 @@ C_HEADS := -I include -I ../shared/include -I ../libft
 
 O_FILES := o/_../shared/srcs/ft_bind.o \
 	o/_../shared/srcs/ft_connect.o \
+	o/_../shared/srcs/ft_hmapbegin.o \
+	o/_../shared/srcs/ft_hmapnext.o \
+	o/srcs/argv.o \
+	o/srcs/channel_hash.o \
 	o/srcs/main.o
 
-MSG_0 := printf '\033[0;32m%-30.30s\033[0;0m\r'
-MSG_1 := printf '\033[0;31m%-30.30s\033[0;0m\n'
+MSG_0 := printf '\033[0;32m%-32.32s\033[0;0m\r'
+MSG_1 := printf '\033[0;31m%-32.32s\033[0;0m\n'
 MSG_END := printf '\n'
 
 .SILENT:
@@ -66,7 +70,23 @@ o/_../shared/srcs/ft_connect.o: ../shared/srcs/ft_connect.c ../shared/include/ft
 	@mkdir -p o/_../shared/srcs 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
-o/srcs/main.o: srcs/main.c ../shared/include/ft_irc.h include/client.h
+o/_../shared/srcs/ft_hmapbegin.o: ../shared/srcs/ft_hmapbegin.c ../shared/include/ft_hmap_it.h ../shared/include/ft_irc.h
+	@mkdir -p o/_../shared/srcs 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/_../shared/srcs/ft_hmapnext.o: ../shared/srcs/ft_hmapnext.c ../shared/include/ft_hmap_it.h ../shared/include/ft_irc.h
+	@mkdir -p o/_../shared/srcs 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/argv.o: srcs/argv.c ../shared/include/ft_circb.h ../shared/include/ft_hmap_it.h ../shared/include/ft_irc.h include/msg.h include/server.h
+	@mkdir -p o/srcs 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/channel_hash.o: srcs/channel_hash.c ../shared/include/ft_circb.h ../shared/include/ft_hmap_it.h ../shared/include/ft_irc.h include/msg.h include/server.h
+	@mkdir -p o/srcs 2> /dev/null || true
+	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
+
+o/srcs/main.o: srcs/main.c ../shared/include/ft_circb.h ../shared/include/ft_hmap_it.h ../shared/include/ft_irc.h include/msg.h include/server.h
 	@mkdir -p o/srcs 2> /dev/null || true
 	@$(MSG_0) $< ; clang $(C_FLAGS) $(C_HEADS) -c -o $@ $< || ($(MSG_1) $< && false)
 
