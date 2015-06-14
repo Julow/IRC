@@ -6,7 +6,7 @@
 /*   By: juloo <juloo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/12 22:21:28 by juloo             #+#    #+#             */
-/*   Updated: 2015/06/13 01:23:28 by juloo            ###   ########.fr       */
+/*   Updated: 2015/06/15 00:44:10 by juloo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ typedef struct	s_dlist
 # define DLIST()		((t_dlist){NULL, NULL, 0})
 
 /*
+** Iterator
+*/
+# define DLISTBEGIN(l)	((void*)(l))
+
+# define DLISTNEXT(l)	((void*)(((t_dhead*)(l))->next))
+# define DLISTPREV(l)	((void*)(((t_dhead*)(l))->prev))
+
+# define DLISTHEAD(l)	((t_dhead*)(l))
+
+/*
 ** ft_dlistpush
 ** ----
 ** Push an element to the list after 'prev'
@@ -56,17 +66,17 @@ typedef struct	s_dlist
 ** ----
 ** Warning: If 'prev' is not NULL it need to be into the list
 */
-inline void		ft_dlistpush(t_dlist *dlist, t_dhead *prev, t_dhead *add)
+inline void		ft_dlistpush(t_dlist *dlist, void *prev, void *add)
 {
-	add->prev = prev;
+	DLISTHEAD(add)->prev = prev;
 	if (prev == NULL)
-		prev = (t_dhead*)dlist;
-	add->next = prev->next;
-	prev->next = add;
-	if (add->next == NULL)
+		prev = dlist;
+	DLISTHEAD(add)->next = DLISTHEAD(prev)->next;
+	DLISTHEAD(prev)->next = add;
+	if (DLISTHEAD(add)->next == NULL)
 		dlist->back = add;
 	else
-		add->next->prev = add;
+		DLISTHEAD(add)->next->prev = add;
 	dlist->count++;
 }
 
@@ -77,16 +87,16 @@ inline void		ft_dlistpush(t_dlist *dlist, t_dhead *prev, t_dhead *add)
 ** ----
 ** Warning: 'rem' need to be into the list
 */
-inline void		ft_dlistremove(t_dlist *dlist, t_dhead *rem)
+inline void		ft_dlistremove(t_dlist *dlist, void *rem)
 {
-	if (rem->prev != NULL)
-		rem->prev->next = rem->next;
+	if (DLISTHEAD(rem)->prev != NULL)
+		DLISTHEAD(rem)->prev->next = DLISTHEAD(rem)->next;
 	else
-		dlist->front = rem->next;
-	if (rem->next != NULL)
-		rem->next->prev = rem->prev;
+		dlist->front = DLISTHEAD(rem)->next;
+	if (DLISTHEAD(rem)->next != NULL)
+		DLISTHEAD(rem)->next->prev = DLISTHEAD(rem)->prev;
 	else
-		dlist->back = rem->prev;
+		dlist->back = DLISTHEAD(rem)->prev;
 	dlist->count--;
 }
 
